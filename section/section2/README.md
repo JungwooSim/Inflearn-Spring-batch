@@ -18,5 +18,11 @@
 - 빈으로 등록된 모든 Job 을 검색하여 초기화와 동시에 Job 을 수행
 
 ## 2. Hello Spring Batch 시작하기
+- @Configuration : 하나의 배치 Job 을 정의하고 빈 설정
+- JobBuilderFactory : Job 을 생성하는 빌더 팩토리
+- StepBuilderFactory : Step 을 생성하는 빌더 팩토리
+- Job
+- Step
+- tasklet : Step 안에서 단일 태스크로 수행되는 로직 구현
 
 ## 3. DB 스키마 생성 및 이해
