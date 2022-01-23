@@ -29,5 +29,7 @@ spring:
     username: big
     password: big
   batch:
+    job:
+      enabled: false # spring ? ??? ? batch ?? ?? ??
     jdbc:
       initialize-schema: never

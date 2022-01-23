@@ -1,4 +1,4 @@
-package io.springbatch.springbatchlecture;
+package io.springbatch.springbatchlecture.section3;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -14,41 +14,39 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @RequiredArgsConstructor
-public class DBJobConfiguration {
+public class JobInstanceConfiguration {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
 
     @Bean
-    public Job helloJob() {
+    public Job job() {
         return jobBuilderFactory.get("job")
-                .start(step1())
-                .next(step2())
+                .start(step3())
+                .next(step4())
                 .build();
     }
 
     @Bean
-    public Step step1() {
-        return stepBuilderFactory.get("step1")
-                // tasklet 는 step 안에서 loop 도는데, return 값에 범위에 따라 설정 가능하다.
+    public Step step3() {
+        return stepBuilderFactory.get("step3")
                 .tasklet(new Tasklet() {
                     @Override
                     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-                        System.out.println("step1 was executed");
-                        return RepeatStatus.FINISHED; // 한번만 실행.
+                        System.out.println("step3 was executed");
+                        return RepeatStatus.FINISHED;
                     }
                 })
                 .build();
     }
 
     @Bean
-    public Step step2() {
-        return stepBuilderFactory.get("step2")
-                // tasklet 는 step 안에서 loop 도는데, return 값에 범위에 따라 설정 가능하다.
+    public Step step4() {
+        return stepBuilderFactory.get("step4")
                 .tasklet(new Tasklet() {
                     @Override
                     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-                        System.out.println("step2 was executed");
-                        return RepeatStatus.FINISHED; // 한번만 실행.
+                        System.out.println("step4 was executed");
+                        return RepeatStatus.FINISHED;
                     }
                 })
                 .build();

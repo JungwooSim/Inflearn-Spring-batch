@@ -1,4 +1,4 @@
-package io.springbatch.springbatchlecture;
+package io.springbatch.springbatchlecture.section1;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -19,7 +19,7 @@ public class HelloJobConfiguration {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
 
-    @Bean
+//    @Bean // 사용안하므로 주석
     public Job helloJob() {
         return jobBuilderFactory.get("helloJob")
                 .start(helloStep1())
