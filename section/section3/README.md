@@ -26,3 +26,17 @@
         2. 이전과 동일한 Job + JobParameter 으로 실행 할 경우 이미 존재하는 JobInstance 리턴
             1. 내부적으로 JobName + JobKey(jobParametes 의 해시값) 를 가지고 JobInstance 객체를 얻는다
     4. Job 과는 1:N 관계
+
+### JobParameters
+
+1. 기본개념
+    1. Job 을 실행할 때 함께 포함되어 사용되는 파라미터를 가진 도메인 객체
+    2. 하나의 Job 에 존재할 수 있는 여러개의 JobInstance 를 구분하기 위한 용도
+    3. JobParameters 와 JobInstance 는 1:1 관계
+2. 생성 및 바인딩
+    1. 애플리케이션 실행 시 주입
+        1. Java -jar LogBatch.jar requestDate=20210101
+    2. 코드로 생성
+        1. JobParameterBuilder(주로 많이 사용), DefaultJobParametersConverter
+    3. SpEL 이용
+        1. @Value(”#{jobparameter[requestDate]}”), @JobScope, @StepScope 선언 필수
