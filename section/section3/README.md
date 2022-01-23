@@ -40,3 +40,18 @@
         1. JobParameterBuilder(주로 많이 사용), DefaultJobParametersConverter
     3. SpEL 이용
         1. @Value(”#{jobparameter[requestDate]}”), @JobScope, @StepScope 선언 필수
+
+### JobExecution
+
+1. 기본개념
+    1. JobInstance 에 대한 한번의 시도를 의미하는 객체로서 Job 실행 중에 발생한 정보들을 저장하고 있는 객체
+        1. 시작시간, 종료시간, 상태(시작, 완료, 실패), 종료 상태의 속성을 가진다
+    2. JobInstance 와의 관계
+        1. JobExecution 은 “FAILED”, “COMPLETED” 등의 job 의 실행 결과 상태를 가지고 있다
+        2. JobExecution 의 실행 상태 결과가 “COMPLETED” 면 JobInstance 실행이 완료된 것으로 간주하여 재실행이 불가하다
+        3. JobExecution 의 실행 상태 결과가 “FAILED” 면 JobInstance 실행이 완료되지 않은 것으로 간주하여 재실행이 가능하다
+            1. JobParameter 가 동일한 값으로 Job 을 실행할지라도 JobInstance 를 계속 실행할 수 있다
+        4. JobExecution 의 실행 상태가 “COMPLATED” 될 때까지 하나의 JobInstance 내에서 여러 번의 시도가 생길 수 있다
+
+JobExecution 실행 상태를 나타내는 ENUM 클래스</br>
+- COMPLETED, STARTING, STARTED, STOPPING, STOPPED, FAILED, ABANDONED, UNKNOWN
