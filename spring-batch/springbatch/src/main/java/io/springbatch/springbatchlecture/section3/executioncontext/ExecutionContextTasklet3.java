@@ -1,9 +1,8 @@
-package io.springbatch.springbatchlecture.section3.execution;
+package io.springbatch.springbatchlecture.section3.executioncontext;
 
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
-import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.stereotype.Component;
 

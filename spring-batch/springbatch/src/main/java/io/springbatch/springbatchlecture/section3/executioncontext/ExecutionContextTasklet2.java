@@ -1,4 +1,4 @@
-package io.springbatch.springbatchlecture.section3.execution;
+package io.springbatch.springbatchlecture.section3.executioncontext;
 
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
