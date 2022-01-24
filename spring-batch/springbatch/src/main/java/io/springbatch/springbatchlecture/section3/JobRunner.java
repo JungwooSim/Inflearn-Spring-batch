@@ -33,6 +33,7 @@ public class JobRunner implements ApplicationRunner {
         /*
         java -jar springbatchlecture-0.0.1-SNAPSHOT.jar name=user1 seq(long)=3L date(date)=2021/01/01 age(double)=16.5 명령어로 실행 가능
          */
+
         JobParameters jobParameters = new JobParametersBuilder()
                 .addString("name", "user1")
                 .addLong("seq", 2L)
@@ -40,6 +41,6 @@ public class JobRunner implements ApplicationRunner {
                 .addDouble("age", 16.5)
                 .toJobParameters();
 
-        jobLauncher.run(job, jobParameters);
+        // jobLauncher.run(job, jobParameters); // 사용하지 않아서 주석
     }
 }

@@ -21,7 +21,7 @@ public class JobInstanceConfiguration {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
 
-    @Bean
+//    @Bean // 사용하지 않아서 주석
     public Job job() {
         return jobBuilderFactory.get("job")
                 .start(step3())

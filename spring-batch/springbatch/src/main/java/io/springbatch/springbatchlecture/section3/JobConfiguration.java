@@ -29,13 +29,7 @@ public class JobConfiguration {
 //    @Bean
     public Step step1() {
         return stepBuilderFactory.get("step1")
-                .tasklet(new Tasklet() {
-                    @Override
-                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-                        System.out.println("step1 was executed");
-                        return RepeatStatus.FINISHED;
-                    }
-                })
+                .tasklet(new CustomTasklet())
                 .build();
     }
 
@@ -51,4 +45,5 @@ public class JobConfiguration {
                 })
                 .build();
     }
+
 }

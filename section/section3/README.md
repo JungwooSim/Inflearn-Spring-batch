@@ -24,7 +24,7 @@
     3. JobInstance 생성 및 실행
         1. 처음 시작하는 Job + JobParameter 일 경우 새로운 JobInstance 생성
         2. 이전과 동일한 Job + JobParameter 으로 실행 할 경우 이미 존재하는 JobInstance 리턴
-            1. 내부적으로 JobName + JobKey(jobParametes 의 해시값) 를 가지고 JobInstance 객체를 얻는다
+            1. 내부적으로 JobName + JobKey(jobParameters 의 해시값) 를 가지고 JobInstance 객체를 얻는다
     4. Job 과는 1:N 관계
 
 ### JobParameters
