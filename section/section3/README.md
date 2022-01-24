@@ -118,3 +118,21 @@ JobExecution 실행 상태를 나타내는 ENUM 클래스</br>
         2. In Memory 방식으로 설정 - MapJobRepositoryFactoryBean
             1. 성능 등의 이슈로 도메인 오브젝트를 굳이 데이터베이스에 저장하고 싶지 않을 경우
             2. 보통 Test, 프로토타입의 빠른 개발을 필요할때 사용
+
+### JobLauncher
+
+1. 기본개념
+    1. 배치 Job 을 실행시키는 역할
+    2. Job 과 Job Parameters 를 인자로 받으며 요청된 배치 작업을 수행한 후 최종 client 에게 JobExecution 을 반환
+    3. 스프링 부트 배치가 구동되면 JobLauncher 빈이 자동으로 생성된다
+    4. Job 실행
+        1. JobLauncher.run(Job, JobParameters)
+        2. 스프링 부트 배치에서는 JobLauncherApplicationRunner 가 자동적으로 JobLauncher  을 실행한다
+        3. 동기적 실행
+            1. taskExecutor 를 SyncTaskExecutor 로 설정할 경우 (기본값은 SyncTaskExecutor)
+            2. JobExecution 을 획득하고 배치 처리를 최종 완료한 이후 Client 에게 JobExecution 을 반환
+            3. 스케줄러에 의한 배치처리에 적합 - 배치처리시간이 길어도 상관없는 경우
+        4. 비동기적 실행
+            1. taskExecutor 가 SimpleAsyncTaskExecutor 로 설정할 경우
+            2. JobExecution 을 획득한 후 Client 에게 바로 JobExecution 을 반환하고 배치처리를 완료한다
+            3. HTTP 요청에 의한 배치처리에 적합 - 배치처리 시간이 긴 경우 응답이 늦어지지 않도록 한다
