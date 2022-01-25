@@ -73,3 +73,7 @@ public Job BatchJob() {
               .build();
   }
 ```
+### StepBuilderFactory & StepBuilder
+`validator()`
+- Job 실행에 필요한 파라미터를 검증하는 용도
+- DefaultJobParametersValidator 구현체를 지원하며 좀 더 복잡한 제약이 있다면 인터페이스를 직접 구현할 수 도 있다
