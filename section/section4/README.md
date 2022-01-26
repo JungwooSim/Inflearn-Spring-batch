@@ -77,3 +77,15 @@ public Job BatchJob() {
 `validator()`
 - Job 실행에 필요한 파라미터를 검증하는 용도
 - DefaultJobParametersValidator 구현체를 지원하며 좀 더 복잡한 제약이 있다면 인터페이스를 직접 구현할 수 도 있다
+
+`preventRestart()`
+- 기본개념
+  - Job 의 재시작 여부 설정
+  - 기본값은 true 이며 false 로 설정 시 재시작을 지원하지 않음 (false 일 때 job 이 실패하여도 재시작하지 않음)
+  - 재시작과 관련 있는 기능이므로 Job 을 처음 실행하는 것과는 아무런 상관 없다
+
+`incrementer()`
+- 기본개념
+  - JobParameters 에서 필요한 값을 증가시켜 다음에 사용될 JobParameters 오브젝트를 리턴
+  - 기존의 JobParameter 변경없이 Job 을 여러번 시작하고자 할 때 사용할 수 있다
+  - RunIdIncrementer 구현체를 지원하며 인터페이스를 직접 구현할 수 있다
