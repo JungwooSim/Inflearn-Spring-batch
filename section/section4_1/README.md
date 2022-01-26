@@ -1,4 +1,4 @@
-# 4. 스프링 배치 실행 - Job
+# 4-1. 스프링 배치 실행 - Job
 ## 1. 배치 초기화 설정
 
 - JobLauncherApplicationRunner
@@ -89,3 +89,7 @@ public Job BatchJob() {
   - JobParameters 에서 필요한 값을 증가시켜 다음에 사용될 JobParameters 오브젝트를 리턴
   - 기존의 JobParameter 변경없이 Job 을 여러번 시작하고자 할 때 사용할 수 있다
   - RunIdIncrementer 구현체를 지원하며 인터페이스를 직접 구현할 수 있다
+
+### SimpleJob 흐름도
+
+<img src="/img/3.png" width="500px;">
