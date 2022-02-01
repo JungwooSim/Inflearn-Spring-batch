@@ -55,7 +55,7 @@
         - Step 내에서 구성되고 실행되는 도메인 객체로서 주로 단일 task 를 수행하기 위한 것
         - TaskletStep 에 의해 반복적으로 수행되며 반환값에 따라 계속 수행 하거나 종료한다
         - RepeatStatus - Tasklet 의 반복 여부 상태 값
-            - RepeatStatus.FINISHED - Tasklet 종료, PepeatStatus 을 null 로 반환하면 RepeatStatus.FINISHED 로 해석된다
+            - RepeatStatus.FINISHED - Tasklet 종료, RepeatStatus 을 null 로 반환하면 RepeatStatus.FINISHED 로 해석된다
             - RepeatStatus.CONTINUABLE - Tasklet 반복
             - RepeatStatus.FINISHED 가 리턴되거나 실패 예외가 던져지기 전까지 TaskletStep 에 의해 while 문 안에서 반복적으로 호출된다 (무한 루프 조심)
     - 익명 클래스 혹은 구현 클래스를 만들어서 사용한다
@@ -78,3 +78,11 @@
     - allow-start-if-complete 가 “true” 로 설정된 step 은 항상 실행한다.
 
 <img src="/img/4.png" width="500px;">
+
+## 3. JobStep
+
+- 기본개념
+    - Job 에 속하는 Step 중 외부의 Job 을 포함하고 있는 Step
+    - 외부의 Job 이 실패하면 해당 Step 이 실패하므로 결국 최종 기본 Job 도 실패한다
+    - 모든 메타데이터는 기본 Job 과 외부 Job 별로 각각 저장된다
+    - 커다란 시스템을 작은 모듈로 쪼개고 job 의 흐름을 관리하고자 할 때 사용할 수 있다
