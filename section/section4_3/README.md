@@ -65,3 +65,10 @@ FlowJob 의 배치 결과 상태에 관여
     - ExitStatus 에 존재하지 않는 exitCode 를 새롭게 정의해서 설정하여 사용할 수 있다
     - StepExecutionListener 의 afterStep() 메서드에서 Custom exitCode 생성 후 새로운 ExitStatus 반환
     - Step 실행 후 완료 시점에서 현재 exitCode 를 사용자 정의 exitCode 로 수정할 수 있다
+
+### JobExecutionDecider
+
+- 기본개념
+  - ExitStatus 를 조작하거나 StepExecutionListener 를 등록할 필요 없이 Transition 처리를 위한 전용 클래스
+  - Step 과 Transition 역할을 명확히 분리하여 설정할 수 있다
+  - Step 의 ExitStatus 가 아닌 JobExecutionDecider 의 FlowExecutionStatus 상태값을 새롭게 설정해서 반환한다
