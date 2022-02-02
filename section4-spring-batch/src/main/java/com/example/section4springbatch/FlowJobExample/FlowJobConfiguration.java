@@ -1,6 +1,7 @@
 package com.example.section4springbatch.FlowJobExample;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -71,6 +72,7 @@ public class FlowJobConfiguration {
         return stepBuilderFactory.get("flowJobBatchJobStep2")
                 .tasklet(((stepContribution, chunkContext) -> {
                     System.out.println("flowJobBatchJobStep2 has executed");
+                    // stepContribution.setExitStatus(ExitStatus.FAILED); // DB 에 ExitStatus 설정 가능
                     return RepeatStatus.FINISHED;
                 })).build();
     }
