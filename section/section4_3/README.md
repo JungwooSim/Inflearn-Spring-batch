@@ -72,3 +72,11 @@ FlowJob 의 배치 결과 상태에 관여
   - ExitStatus 를 조작하거나 StepExecutionListener 를 등록할 필요 없이 Transition 처리를 위한 전용 클래스
   - Step 과 Transition 역할을 명확히 분리하여 설정할 수 있다
   - Step 의 ExitStatus 가 아닌 JobExecutionDecider 의 FlowExecutionStatus 상태값을 새롭게 설정해서 반환한다
+
+## 4. SimpleFlow
+
+### 개념및 API 소개
+
+- 기본개념
+  - 스프링 배치에서 제공하는 Flow 의 구현체로서 각 요소(Step, Flow, JobExecutionDecider) 들을 담고 있는 State 를 실행시키는 도메인 객체
+  - FlowBuilder 를 사용하여 생성하며 Transition 과 조합하여 여러 개의 Flow 및 중첩 Flow 를 만들어 Job 을 구성할 수 있다
