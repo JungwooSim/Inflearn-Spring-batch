@@ -112,4 +112,14 @@ public Step chunkStep() {
 - O process
   - 아이템 하나씩 가공처리하며 null 리턴할 경우 해당 아이템은 Chunk<O> 에 저장되지 않는다
 
-<img src="/img/9.png" width="500px;">
+<img src="/img/10.png" width="500px;">
+
+### ItemStream
+
+- 기본개념
+  - ItemReader 와 ItemWriter 처리 과정 중 상태를 저장하고 오류가 발생하면 해당 상태를 참조하여 실패한 곳에서 재시작하도록 지원
+  - 리소스를 열고(open), 닫아야(close) 하며 입출력 장치 초기화 등의 작업을 해야하는 경우
+  - ExecutionContext 를 매게변수로 받아서 상태 정보를 업데이트 한다
+  - ItemReader 및 ItemWriter 는 ItemStream 을 구현해야 한다
+
+<img src="/img/11.png" width="500px;">
