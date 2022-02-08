@@ -123,3 +123,9 @@ public Step chunkStep() {
   - ItemReader 및 ItemWriter 는 ItemStream 을 구현해야 한다
 
 <img src="/img/11.png" width="500px;">
+
+### 아키텍처
+
+<img src="/img/12.png" width="500px;">
+
+<img src="/img/13.png" width="500px;">
