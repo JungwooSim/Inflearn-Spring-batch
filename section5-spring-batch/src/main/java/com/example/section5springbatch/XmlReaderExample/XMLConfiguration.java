@@ -1,5 +1,6 @@
-package com.example.section5springbatch.FlatFilesExample;
+package com.example.section5springbatch.XmlReaderExample;
 
+import com.example.section5springbatch.FlatFilesExample.Customer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;

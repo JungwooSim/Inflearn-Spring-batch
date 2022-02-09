@@ -76,6 +76,8 @@ public FlatFileItemReader itemReader() {
 - 토큰화 검증을 엄격하게 적용하지 않도록 설정하면 Parsing 예외가 발생하지 않도록 할 수 있다
 
 ## 2. XML StaxEventItemReader
+- 기본개념
+    - Stax API 방식으로 데이터를 읽어들이는 ItemReader
 
 - JAVA 에서 제공하는 XML API
     - DOM 방식
@@ -105,3 +107,11 @@ public FlatFileItemReader itemReader() {
 - Spring Batch XML
     - 스프링 배치에서는 StAX 방식으로 XML 문서를 처리하는 StaxEventItemReader 를 제공한다
     - XML 을 읽어 자바 객체로 매핑하고 자바 객체를 XML 로 쓸 수 있는 트랜잭션 구조를 지원한다
+
+## 3. JsonItemReader
+
+- 기본개념
+    - Json 데이터의 Parsing 과 Binding 을 JsonObjectReader 인터페이스 구현체에 위임하여 처리하는 ItemReader
+    - 두 가지 구현체 제공
+        - JacksonJsonObjectReader
+        - GsonJsonObjectReader
