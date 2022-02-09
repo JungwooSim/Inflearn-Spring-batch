@@ -40,7 +40,8 @@ public class FlatFilesConfiguration {
                 .<String, String>chunk(1)
 //                .reader(itemReader())
 //                .reader(itemReader2())
-                .reader(itemReader3())
+//                .reader(itemReader3())
+                .reader(itemReader4())
                 .writer(new ItemWriter<String>() {
                     @Override
                     public void write(List list) throws Exception {
@@ -103,6 +104,26 @@ public class FlatFilesConfiguration {
                 .targetType(Customer.class)
                 .linesToSkip(1)
                 .fixedLength()
+                .addColumns(new Range(1, 5))
+                .addColumns(new Range(6, 9))
+                .addColumns(new Range(10, 11))
+                .names("name", "year", "age")
+                .build();
+    }
+
+    /**
+     * FixedLengthTokenizer, ExceptionHandler(.strict(false))
+     */
+    @Bean
+    public ItemReader itemReader4() {
+        return new FlatFileItemReaderBuilder<Customer>()
+                .name("flatFile")
+                .resource(new FileSystemResource("/Users/bigpenguin/project/Inflearn-Spring-batch/section5-spring-batch/src/main/resources/customer-error-data.txt"))
+                .fieldSetMapper(new BeanWrapperFieldSetMapper<>())
+                .targetType(Customer.class)
+                .linesToSkip(1)
+                .fixedLength()
+                .strict(false)
                 .addColumns(new Range(1, 5))
                 .addColumns(new Range(6, 9))
                 .addColumns(new Range(10, 11))

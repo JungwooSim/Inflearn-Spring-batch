@@ -56,3 +56,21 @@ public FlatFileItemReader itemReader() {
 	.build();
 }
 ```
+### DelimitedLineTokenizer
+
+- 기본개념
+    - 한 개 라인의 String 을 구분자 기준으로 나누어 토큰화 하는 방식
+
+
+### FixedLengthTokenizer
+
+- 기본개념
+    - 한 개 라인의 String 을 사용자가 설정한 고정길이 기준으로 나누어 토큰화 하는 방식
+    - 범위는 문자열 형식으로 설정할 수 있다
+        - “1-4” 또는 “1-3, 4-6, 7” 또는 “1-2, 4-5, 7-10”
+        - 마지막 범위가 열려있으면 나머지 행이 해당 열로 읽혀진다
+
+### Exception Handling
+
+- 라인을 읽거나 토큰화할 때 발생하는 Parsing 예외를 처리할 수 있도록 예외 계층 제공
+- 토큰화 검증을 엄격하게 적용하지 않도록 설정하면 Parsing 예외가 발생하지 않도록 할 수 있다
