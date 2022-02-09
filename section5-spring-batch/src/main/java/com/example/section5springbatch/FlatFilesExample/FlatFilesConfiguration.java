@@ -11,10 +11,12 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
+import org.springframework.batch.item.file.transform.Range;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 
 import java.util.List;
 
@@ -35,9 +37,10 @@ public class FlatFilesConfiguration {
     @Bean
     public Step flatFilesBatchJobStep1() {
         return stepBuilderFactory.get("flatFilesBatchJobStep1")
-                .<String, String>chunk(5)
+                .<String, String>chunk(1)
 //                .reader(itemReader())
-                .reader(itemReader2())
+//                .reader(itemReader2())
+                .reader(itemReader3())
                 .writer(new ItemWriter<String>() {
                     @Override
                     public void write(List list) throws Exception {
@@ -71,6 +74,10 @@ public class FlatFilesConfiguration {
         return itemReader;
     }
 
+
+    /**
+     * DelimitedLineTokenizer
+     */
     @Bean
     public ItemReader itemReader2() {
         return new FlatFileItemReaderBuilder<Customer>()
@@ -81,6 +88,25 @@ public class FlatFilesConfiguration {
                 .linesToSkip(1)
                 .delimited().delimiter(",")
                 .names("name", "age", "year")
+                .build();
+    }
+
+    /**
+     * FixedLengthTokenizer
+     */
+    @Bean
+    public ItemReader itemReader3() {
+        return new FlatFileItemReaderBuilder<Customer>()
+                .name("flatFile")
+                .resource(new FileSystemResource("/Users/bigpenguin/project/Inflearn-Spring-batch/section5-spring-batch/src/main/resources/customer.txt"))
+                .fieldSetMapper(new BeanWrapperFieldSetMapper<>())
+                .targetType(Customer.class)
+                .linesToSkip(1)
+                .fixedLength()
+                .addColumns(new Range(1, 5))
+                .addColumns(new Range(6, 9))
+                .addColumns(new Range(10, 11))
+                .names("name", "year", "age")
                 .build();
     }
 }
