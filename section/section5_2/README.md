@@ -74,3 +74,34 @@ public FlatFileItemReader itemReader() {
 
 - 라인을 읽거나 토큰화할 때 발생하는 Parsing 예외를 처리할 수 있도록 예외 계층 제공
 - 토큰화 검증을 엄격하게 적용하지 않도록 설정하면 Parsing 예외가 발생하지 않도록 할 수 있다
+
+## 2. XML StaxEventItemReader
+
+- JAVA 에서 제공하는 XML API
+    - DOM 방식
+        - 문서 전체를 메모리에 로드한 후 Tree 형태로 만들어서 데이터를 처리하는 방식. (pull 방식)
+        - 엘리먼트 제어는 유연하나 문서크기가 클 경우 메모리 사용이 많고 속도가 느리다
+    - SAX 방식
+        - 문서의 항목을 읽을때 마다 이벤트가 발생하여 데이터를 처리하는 push 방식
+        - 메모리 비용이 적고 속도가 빠른 장점은 있으나 엘리먼트 제어가 어렵다
+    - StAX 방식(Streaming API for XML)
+        - DOM 과 SAX 의 장점과 단점을 보완한 API 모델로서 push 와 pull 을 동시에 제공
+        - XML 문서를 읽고 쓸 수 있는 양방향 파서기 지원
+        - XML 파일의 항목에서 항목으로 직접 이동하면서 Stxa 파서기를 통해 구문 분석
+        - 유형
+            - Iterator API 방식
+                - XMLEventReader 의 nextEvent() 를 호출해서 이벤트 객체를 가지고 온다
+                - 이벤트 객체는 XML 태그 유형(요소, 텍스트, 주석 등)에 대한 정보를 제공한다
+            - Cursor API 방식
+                - JDBC Resultset 처럼 작동하는 API 로서 XMLStreamReader 는 XML 문서의 다음 요소로 커서를 이동한다
+                - 커서에서 직접 메서드를 호출하여 현재 이벤트에 대한 자세한 정보를 얻는다
+- Spring-OXM
+    - 스프링의 Object XML Mapping 기술로 XML 바인딩 기술을 추상화 한다
+        - Marshaller
+        - Unmarchaller
+        - Marshaller 와 Unmarshaller 바인딩 기능을 제공하는 오픈소스로 JaxB2, Castor, XmlBeans, Xstream 등이 있다
+    - 스프링 배치는 특정한 XML 바인딩 기술을 강요하지 않고 Spring OXM 에 위임한다
+        - 바인딩 기술을 제공하는 구현체를 선택해서 처리하도록 한다
+- Spring Batch XML
+    - 스프링 배치에서는 StAX 방식으로 XML 문서를 처리하는 StaxEventItemReader 를 제공한다
+    - XML 을 읽어 자바 객체로 매핑하고 자바 객체를 XML 로 쓸 수 있는 트랜잭션 구조를 지원한다
