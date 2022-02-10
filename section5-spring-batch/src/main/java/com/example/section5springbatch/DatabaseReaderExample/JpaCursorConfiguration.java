@@ -37,7 +37,7 @@ public class JpaCursorConfiguration {
         return stepBuilderFactory.get("jpaCursorBasicJobStep1")
                 .<Customer, Customer>chunk(chunkSize)
                 .reader(jpaCursorItemReader())
-                .writer(jdbcCursorItemWriter())
+                .writer(jdbcCursorItemWriter1())
                 .build();
     }
 
@@ -55,7 +55,7 @@ public class JpaCursorConfiguration {
     }
 
     @Bean
-    public ItemWriter<Customer> jdbcCursorItemWriter() {
+    public ItemWriter<Customer> jdbcCursorItemWriter1() {
         return items -> {
             for (Customer item : items) {
                 System.out.println(item);

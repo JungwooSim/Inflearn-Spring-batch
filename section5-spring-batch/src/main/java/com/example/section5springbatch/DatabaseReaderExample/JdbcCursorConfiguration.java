@@ -33,7 +33,7 @@ public class JdbcCursorConfiguration {
         return stepBuilderFactory.get("jdbcCursorBasicJobStep1")
                 .<Customer, Customer>chunk(chunkSize)
                 .reader(jdbcCursorItemReader())
-                .writer(jdbcCursorItemWriter())
+                .writer(jdbcCursorItemWriter2())
                 .build();
     }
 
@@ -50,7 +50,7 @@ public class JdbcCursorConfiguration {
     }
 
     @Bean
-    public ItemWriter<Customer> jdbcCursorItemWriter() {
+    public ItemWriter<Customer> jdbcCursorItemWriter2() {
         return items -> {
             for (Customer item : items) {
                 System.out.println(item);
