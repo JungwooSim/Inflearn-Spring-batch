@@ -143,3 +143,49 @@ Paging Based
 - Connection 연결 유지 시간이 길지 않고 메모리 공간을 효율적으로 사용해야 하는 데이터 처리에 적합할 수 있다
 
 <img src="/img/14.png" width="500px;">
+
+### JdbcCursorItemReader
+
+- 기본개념
+    - Cursor 기반의 JDBC 구현체로서 ResultSet 과 함께 사용되며 Datasource 에서 Connection 을 얻어와서 SQL 을 실행한다
+    - Thread 안정성을 보장하지 않기 때문에 멀티 스레드 환경에서 사용할 경우 동시성 이슈가 발생하지 않도록 별도 동기화 처리가 필요하다
+
+```
+public JdbcCursorItemReader itemReader() {
+	return new JdbcCursorItemReaderBuilder<T>()
+		.name()
+		.fetchSize() // Cursor 방식으로 데이터를 가지고 올 때 한번에 메모리에 할당할 크기를 설정
+		.dataSoruce() // DB 에 접근하기 위해 Datasoruce 설정
+		.rowMapper() // 쿼리 결과로 반환되는 데이터와 객체를 매핑하기 위한 RowMapper 설정
+		.beanRowMapper() // 별도의 RowMapper 을 설정하지 않고 클래스 타입을 설정하면 자동으로 객체와 매핑
+		.sql() // ItemReader 가 조회할 때 사용할 쿼리 문장 설정
+		.queryArguments() // 쿼리 파라미터 설정
+		.maxItemCount() // 조회할 최대 item 수
+		.currentItemCount() // 조회 item 의 시작 지점
+		.maxRows() // ResultSet 오브젝트가 포함할 수 있는 최대 행 수
+		.build();
+}
+```
+
+<img src="/img/15.png" width="500px;">
+
+### JpaCursorItemReader
+
+- 기본개념
+    - Spring Batch 4.3 버전부터 지원
+    - Cursor 기반의 JPA 구현체로서 EntityManagerFactory 객체가 필요하며 쿼리는 JPQL 을 사용한다
+
+```
+public JpaCursorItemReader itemReader() {
+	return new JpaCusorItemReaderBuilder<T>()
+		.name()
+		.queryString() // ItemReader 가 조회할 때 사용할 JPQL 문장 설정
+		.EntityManagerFactory() // JPQL 을 실행하는 EntityManager 를 생성하는 팩토리
+		.parameterValue() // 쿼리 파라미터 설정
+		.maxItemCount() // 조회할 최대 item 수
+		.currentItemCount() // 조회 item 의 시작 지점
+		.build();
+}
+```
+
+<img src="/img/16.png" width="500px;">
