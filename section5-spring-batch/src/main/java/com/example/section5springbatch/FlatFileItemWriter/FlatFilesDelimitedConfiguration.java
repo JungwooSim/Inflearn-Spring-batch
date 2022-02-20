@@ -44,7 +44,7 @@ public class FlatFilesDelimitedConfiguration {
     public ItemWriter<? super Customer> flatFilesDelimitedBatchJobItemWriter2() {
         return new FlatFileItemWriterBuilder<Customer>()
                 .name("flatFilesDelimitedBatchJobItemWriter2")
-                .resource(new FileSystemResource("/Users/bigpenguin/project/Inflearn-Spring-batch/section5-spring-batch/src/main/resources/customer.txt"))
+                .resource(new FileSystemResource("/Users/bigpenguin/project/Inflearn-Spring-batch/section5-spring-batch/src/main/resources/FlatFileItemWriter/customer.txt"))
                 .formatted()
                 .format("%-2d%-14s%-2d")
                 .names(new String[]{"name", "year", "age"})
@@ -55,7 +55,7 @@ public class FlatFilesDelimitedConfiguration {
     public ItemWriter<? super Customer> flatFilesDelimitedBatchJobItemWriter1() {
         return new FlatFileItemWriterBuilder<>()
                 .name("flatFileWriter")
-                .resource(new FileSystemResource("/Users/bigpenguin/project/Inflearn-Spring-batch/section5-spring-batch/src/main/resources/customer.txt"))
+                .resource(new FileSystemResource("/Users/bigpenguin/project/Inflearn-Spring-batch/section5-spring-batch/src/main/resources/FlatFileItemWriter/customer.txt"))
                 .delimited()
                 .delimiter("|")
                 .names(new String[]{"name", "year", "age"})
