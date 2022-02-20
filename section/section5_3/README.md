@@ -61,3 +61,20 @@ public StaxEventItemReader itemReader() {
 	.build();
 }
 ```
+## 3. Json - JsonFileItemWriter
+- 객체를 받아 JSON String 으로 변환하는 역할
+
+```
+public JsonFileWriterBuilder itemReader() {
+	return JsonFileItemWriterBuilder<T>()
+		.name()
+		.resource() // 쓰기할 리소스 설정
+		.append() // 존재하는 파일에 내용을 추가할 것인지 여부 설정
+		.jsonObjectMarshaller() // JsonObjectMarshaller 객체 설정
+		.headerCallback() // 헤더를 파일에 쓰기위한 콜백 인터페이스
+		.footerCallback() // 푸터를 파일에 쓰기위한 콜백 인터페이스
+		.shouldDeleteIfExists() // 파일이 이미 존재한다면 삭제
+		.shouldDeleteIfEmpty() // 파일의 내용이 비어있다면 삭제
+		.build();
+}
+```
