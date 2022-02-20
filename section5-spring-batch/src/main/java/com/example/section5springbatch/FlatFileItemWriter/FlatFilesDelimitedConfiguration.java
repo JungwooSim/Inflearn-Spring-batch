@@ -35,12 +35,24 @@ public class FlatFilesDelimitedConfiguration {
         return stepBuilderFactory.get("flatFilesDelimitedBatchJobStep1")
                 .<Customer, Customer>chunk(10)
                 .reader(flatFilesDelimitedBatchJobItemReader())
-                .writer(flatFilesDelimitedBatchJobItemWriter())
+                //.writer(flatFilesDelimitedBatchJobItemWriter2())
+                .writer(flatFilesDelimitedBatchJobItemWriter1())
                 .build();
     }
 
     @Bean
-    public ItemWriter<? super Customer> flatFilesDelimitedBatchJobItemWriter() {
+    public ItemWriter<? super Customer> flatFilesDelimitedBatchJobItemWriter2() {
+        return new FlatFileItemWriterBuilder<Customer>()
+                .name("flatFilesDelimitedBatchJobItemWriter2")
+                .resource(new FileSystemResource("/Users/bigpenguin/project/Inflearn-Spring-batch/section5-spring-batch/src/main/resources/customer.txt"))
+                .formatted()
+                .format("%-2d%-14s%-2d")
+                .names(new String[]{"name", "year", "age"})
+                .build();
+    }
+
+    @Bean
+    public ItemWriter<? super Customer> flatFilesDelimitedBatchJobItemWriter1() {
         return new FlatFileItemWriterBuilder<>()
                 .name("flatFileWriter")
                 .resource(new FileSystemResource("/Users/bigpenguin/project/Inflearn-Spring-batch/section5-spring-batch/src/main/resources/customer.txt"))
