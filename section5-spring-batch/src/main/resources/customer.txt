@@ -1,10 +1,3 @@
-name,age,year
-user1197448
-user2197448
-user3197448
-user4197448
-user5197448
-user6197448
-user7197448
-user8197448
-user9197448
+hong gil dong1|year|41
+hong gil dong2|year|41
+hong gil dong3|year|41
