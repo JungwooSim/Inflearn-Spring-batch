@@ -10,7 +10,7 @@
         - Chunk<input> 는 ItemReader 로 읽은 하나의 아이템을 Chunk 에서 정한 개수만큼 반복해서 저장하는 타입이다
         - Chunk<output> 는 ItemReader 로부터 전달받은 Chunk<input> 를 참조해서 ItemProcessor 에서 적절하게 가공, 필터링한 다음 ItemWriter 에 전달하는 타입이다
 
-<img src="/img/6.png" width="500px;">
+<img src="/img/6.png" width="1000px;">
 
 ## 2. ChunkOrientedTasklet
 
@@ -22,7 +22,7 @@
     - 내부적으로 ItemReader 를 핸들링하는 ChunkProvider 와 ItemProcessor, ItemWriter 를 핸들링하는 ChunkProcessor 타입의 구현체를 가진다
 
 
-<img src="/img/7.png" width="500px;">
+<img src="/img/7.png" width="1000px;">
 
 ```
 public Step chunkStep() {
@@ -77,7 +77,7 @@ public Step chunkStep() {
   - 아이템 하나는 파일의 한줄, DB 의 한 row 혹은 XML 파일에서 하나의 엘리먼트가 될 수 있다
   - 더 이상 처리해야 할 Item 이 없어도 예외가 발생하지 않고 ItemProcessor 와 같은 다음 단계로 이동한다
 
-<img src="/img/8.png" width="500px;">
+<img src="/img/8.png" width="1000px;">
 
 ### ItemWriter
 
@@ -95,7 +95,7 @@ public Step chunkStep() {
   - 출력 데이터를 아이템 리스트로 받아 처리한다
   - 출력이 완료되고 트랜잭션이 종료되면 새로운 Chunk 단위 프로세스를 이동한다
 
-<img src="/img/9.png" width="500px;">
+<img src="/img/9.png" width="1000px;">
 
 - 다수의 구현체들이 ItemWriter 와 ItemStream 을 동시에 구현하고 있다
   - 파일 스트림을 열거나 종료, DB 커넥션을 열거나 종료, 출력 장치 초기화 등의 작업
@@ -112,7 +112,7 @@ public Step chunkStep() {
 - O process
   - 아이템 하나씩 가공처리하며 null 리턴할 경우 해당 아이템은 Chunk<O> 에 저장되지 않는다
 
-<img src="/img/10.png" width="500px;">
+<img src="/img/10.png" width="1000px;">
 
 ### ItemStream
 
@@ -122,10 +122,10 @@ public Step chunkStep() {
   - ExecutionContext 를 매게변수로 받아서 상태 정보를 업데이트 한다
   - ItemReader 및 ItemWriter 는 ItemStream 을 구현해야 한다
 
-<img src="/img/11.png" width="500px;">
+<img src="/img/11.png" width="1000px;">
 
 ### 아키텍처
 
-<img src="/img/12.png" width="500px;">
+<img src="/img/12.png" width="1000px;">
 
-<img src="/img/13.png" width="500px;">
+<img src="/img/13.png" width="1000px;">

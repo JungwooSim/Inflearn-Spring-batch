@@ -8,7 +8,7 @@
     - 기본 구현체로 RepeatTemplate 를 제공한다
 
 
-<img src="/img/20.png" width="500px;">
+<img src="/img/20.png" width="1000px;">
 
 - 반복 종료 여부를 결정하는 세가지 항목
     - RepeatStatus
@@ -24,6 +24,6 @@
         - 예외를 받아서 다시 던지게 되면 반복 종료
         - 비정상 종료를 알리는데 사용됨
 
-<img src="/img/21.png" width="500px;">
+<img src="/img/21.png" width="1000px;">
 
-<img src="/img/22.png" width="500px;">
+<img src="/img/22.png" width="1000px;">

@@ -54,7 +54,7 @@
 
 ### DB 스키마 이해
 
-<img src="/img/2.png" width="500px;"></br>
+<img src="/img/2.png" width="1000px;"></br>
 ([https://docs.spring.io/spring-batch/docs/3.0.x/reference/html/metaDataSchema.html](https://docs.spring.io/spring-batch/docs/3.0.x/reference/html/metaDataSchema.html))
 
 **Job 관련 테이블**

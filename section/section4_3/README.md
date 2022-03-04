@@ -9,7 +9,7 @@
     - Flow 와 Job 의 흐름을 구성하는데만 관여하고 실제 비즈니스 로직은 Step 에서 이루어진다
     - 내부적으로 SimpleFlow 객체를 포함하고 있으며 Job 실행 시 호출
 
-<img src="/img/5.png" width="500px;">
+<img src="/img/5.png" width="1000px;">
 
 - API 소개
 

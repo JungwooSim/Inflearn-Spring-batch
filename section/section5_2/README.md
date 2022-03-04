@@ -142,7 +142,7 @@ Paging Based
 - 페이징 단위의 결과만 메모리에 할당하기 때문에 메모리 사용량이 적어지는 장점이 있다
 - Connection 연결 유지 시간이 길지 않고 메모리 공간을 효율적으로 사용해야 하는 데이터 처리에 적합할 수 있다
 
-<img src="/img/14.png" width="500px;">
+<img src="/img/14.png" width="1000px;">
 
 ### JdbcCursorItemReader
 
@@ -167,7 +167,7 @@ public JdbcCursorItemReader itemReader() {
 }
 ```
 
-<img src="/img/15.png" width="500px;">
+<img src="/img/15.png" width="1000px;">
 
 ### JpaCursorItemReader
 
@@ -188,7 +188,7 @@ public JpaCursorItemReader itemReader() {
 }
 ```
 
-<img src="/img/16.png" width="500px;">
+<img src="/img/16.png" width="1000px;">
 
 ### JdbcPagingItemReader
 
@@ -225,7 +225,7 @@ public JdbcPagingItemReader itemReader() {
 }
 ```
 
-<img src="/img/17.png" width="500px;">
+<img src="/img/17.png" width="1000px;">
 
 ### JpaPagingItemReader
 
@@ -245,7 +245,7 @@ public JpaPagingItemReader itemReader() {
 }
 ```
 
-<img src="/img/18.png" width="500px;">
+<img src="/img/18.png" width="1000px;">
 
 ### ItemReaderAdapter
 

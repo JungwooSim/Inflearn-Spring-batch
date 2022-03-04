@@ -18,4 +18,4 @@
 
 ## 2. 아키텍처
 
-<img src="/img/1.png" width="500px;">
+<img src="/img/1.png" width="1000px;">

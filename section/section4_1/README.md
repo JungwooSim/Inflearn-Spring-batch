@@ -92,4 +92,4 @@ public Job BatchJob() {
 
 ### SimpleJob 흐름도
 
-<img src="/img/3.png" width="500px;">
+<img src="/img/3.png" width="1000px;">

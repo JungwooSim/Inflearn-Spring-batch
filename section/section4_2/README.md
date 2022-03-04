@@ -77,7 +77,7 @@
     - 기본적으로 COMPLETED 상태를 가진 Step 은 Job 재시작시 실행하지 않고 스킵한다
     - allow-start-if-complete 가 “true” 로 설정된 step 은 항상 실행한다.
 
-<img src="/img/4.png" width="500px;">
+<img src="/img/4.png" width="1000px;">
 
 ## 3. JobStep
 

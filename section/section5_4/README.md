@@ -14,4 +14,4 @@ public ItemProcessor itemProcessor() {
 }
 ```
 
-<img src="/img/19.png" width="500px;">
+<img src="/img/19.png" width="1000px;">
