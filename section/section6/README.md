@@ -82,3 +82,35 @@ public Step batchStep() {
 - ItemProcessor 와 ItemWriter 는 예외가 발생하면 Chunk 의 처음으로 돌아가서 스킵된 아이템을 제외한 나머지 아이템들을 가지고 처리하게 된다
 
 <img src="/img/25.png" width="1000px;">
+
+## 4. Retry
+
+- 개념
+    - ItemProcessor, ItemWriter 에서 설정된 Exception 이 발생했을 경우, 지정한 정책에 따라 데이터 처리를 재시도 하는 기능
+    - Skip 과 마찬가지로 Retry 를 함으로써, 배치수행의 빈번한 실패를 줄일 수 있다
+
+<img src="/img/26.png" width="1000px;">
+
+- Retry 기능은 내부적으로 RetryPolicy 를 통해서 구현되어 있다
+- Retry 가능 여부를 판별하는 기준은 다음과 같다
+    - 재시도 대상에 포함된 예외인지 여부
+    - 재시도 카운터를 초과 했는지 여부
+
+<img src="/img/27.png" width="1000px;">
+
+```
+public Step batchStep() {
+	return stepBuilderFactory.get("")
+		.<I, O>chunk(10)
+		.reader()
+		.writer()
+		.falutTolerant()
+		.retry() // 예외 발생 시 Retry 할 예외 타입 설정
+		.retryLimit() // Retry 제한 횟수 설정
+		.retryPolicy() // Retry 를 어떤 조건과 기준으로 적용할 것인지 정책 설정
+		.noRetry() // 다시 Retry 까지의 지연시간을 설정
+		.backOffPolicy() // 예외 발생 시 Retry 하지 않을 예외 타입 설정
+		.noRollback() // 예외 발생 시 Rollback 하지 않을 예외 타입 설정
+		.build();
+}
+```
