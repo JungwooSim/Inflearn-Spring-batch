@@ -6,8 +6,11 @@ public class RetryItemProcessor implements ItemProcessor<String, String> {
     private int cnt = 0;
     @Override
     public String process(String item) throws Exception {
-        cnt++;
-        System.out.println("cnt : " + cnt);
-        throw new RetryAbleException();
+        if (item.equals("2") || item.equals("3")) {
+            cnt++;
+            throw new RetryAbleException("failed cnt : " + cnt);
+        }
+
+        return item;
     }
 }

@@ -10,9 +10,13 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.retry.RetryPolicy;
+import org.springframework.retry.policy.SimpleRetryPolicy;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Configuration
@@ -36,8 +40,11 @@ public class RetryConfiguration {
                 .processor(retryBatchJobProcessor())
                 .writer(items -> items.forEach(item -> System.out.println(item)))
                 .faultTolerant()
-                .retry(RetryAbleException.class)
-                .retryLimit(2)
+                .skip(RetryAbleException.class)
+                .skipLimit(2)
+//                .retry(RetryAbleException.class) // retry 설정 1
+//                .retryLimit(2) // retry limit 설정 1
+                .retryPolicy(retryPolicy())
                 .build();
     }
 
@@ -55,5 +62,14 @@ public class RetryConfiguration {
         }
 
         return new ListItemReader<>(items);
+    }
+
+    @Bean
+    public RetryPolicy retryPolicy() {
+        Map<Class<? extends Throwable>, Boolean> exceptionClass = new HashMap();
+        exceptionClass.put(RetryAbleException.class, true);
+
+        SimpleRetryPolicy simpleRetryPolicy = new SimpleRetryPolicy(2, exceptionClass);
+        return simpleRetryPolicy;
     }
 }
