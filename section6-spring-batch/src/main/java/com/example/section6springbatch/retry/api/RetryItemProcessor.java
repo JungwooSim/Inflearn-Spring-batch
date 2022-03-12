@@ -1,5 +1,6 @@
-package com.example.section6springbatch.retry;
+package com.example.section6springbatch.retry.api;
 
+import com.example.section6springbatch.retry.RetryAbleException;
 import org.springframework.batch.item.ItemProcessor;
 
 public class RetryItemProcessor implements ItemProcessor<String, String> {
