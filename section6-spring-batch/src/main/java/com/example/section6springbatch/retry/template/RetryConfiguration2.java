@@ -82,13 +82,14 @@ public class RetryConfiguration2 {
         Map<Class<? extends Throwable>, Boolean> exceptionClass = new HashMap();
         exceptionClass.put(RetryAbleException.class, true);
 
+        // 딜레이 적용
         FixedBackOffPolicy fixedBackOffPolicy = new FixedBackOffPolicy();
         fixedBackOffPolicy.setBackOffPeriod(2000);
 
         SimpleRetryPolicy simpleRetryPolicy = new SimpleRetryPolicy(2, exceptionClass);
         RetryTemplate retryTemplate = new RetryTemplate();
         retryTemplate.setRetryPolicy(simpleRetryPolicy);
-//        retryTemplate.setBackOffPolicy(simpleRetryPolicy);
+        retryTemplate.setBackOffPolicy(fixedBackOffPolicy);
 
         return retryTemplate;
     }
