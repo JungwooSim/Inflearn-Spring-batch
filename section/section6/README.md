@@ -114,3 +114,16 @@ public Step batchStep() {
 		.build();
 }
 ```
+## 5. Skip & Retry 아키텍처
+
+### ItemReader
+
+<img src="/img/28.png" width="1000px;">
+
+### ItemProcessor
+
+<img src="/img/29.png" width="1000px;">
+
+### ItemWriter
+
+<img src="/img/30.png" width="1000px;">
