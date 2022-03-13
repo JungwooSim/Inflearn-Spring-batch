@@ -25,3 +25,15 @@
             - Step 마다 스레드가 할당되어 여러개의 Step 을 병렬로 실행하는 방법
         - Partitioning
             - Master/Slave 방식으로서 Master 가 데이터를 파티셔닝 한 다음 각 파티션에게 스레드를 할당하여 Slave 가 독립적으로 작동하는 방식
+
+## 2. AsyncItemProcessor / AsyncItemWriter
+
+- 개념
+    - Step 안에서 ItemProcessor 가 비동기적으로 동작하는 구조
+    - AsyncItemProcessor 와 AsncItemWriter 가 함께 구성이 되어야 한다
+    - AsyncItemProcessor 로 부터 AsyncItemWriter 가 받는 최종 결과값은 List <Future<T>> 타입이며 비동기 실행이 완료될 때까지 대기한다
+    - Spring-batch-integration 의존성이 필요하다
+
+<img src="/img/33.png" width="1000px;">
+
+<img src="/img/34.png" width="1000px;">
