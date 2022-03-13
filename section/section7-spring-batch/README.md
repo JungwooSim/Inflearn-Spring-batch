@@ -37,3 +37,13 @@
 <img src="/img/33.png" width="1000px;">
 
 <img src="/img/34.png" width="1000px;">
+
+## 3. Multi-threaded Step
+
+- 개념
+    - Step 내에서 멀리 스레드로 Chunk 기반 처리가 이루어지는 구조
+    - TaskExecutorRepeatTemplate 이 반복자로 사용되며 설정한 개수 (throttleLimit) 만큼의 스레드를 생성하여 수행
+
+<img src="/img/35.png" width="1000px;">
+
+<img src="/img/36.png" width="1000px;">

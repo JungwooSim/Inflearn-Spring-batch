@@ -1,13 +1,14 @@
-package com.example.section7springbatch.ayncitem;
+package com.example.section7springbatch.multithreadstep;
 
+import com.example.section7springbatch.ayncitem.Customer;
+import com.example.section7springbatch.ayncitem.CustomerRowMapper;
+import com.example.section7springbatch.ayncitem.StopWatchJobListener;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.batch.integration.async.AsyncItemProcessor;
-import org.springframework.batch.integration.async.AsyncItemWriter;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
@@ -16,79 +17,49 @@ import org.springframework.batch.item.database.Order;
 import org.springframework.batch.item.database.support.MySqlPagingQueryProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.task.SimpleAsyncTaskExecutor;
+import org.springframework.core.task.TaskExecutor;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
 
 @RequiredArgsConstructor
 @Configuration
-public class AsyncConfiguration {
+public class MultiThreadStepConfiguration {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final DataSource dataSource;
 
     @Bean
-    public Job asyncBatchJob() throws Exception {
-        return jobBuilderFactory.get("asyncBatchJob")
+    public Job multiThreadStepBatchJob() {
+        return jobBuilderFactory.get("multiThreadStepBatchJob")
                 .incrementer(new RunIdIncrementer())
-//                .start(asyncBatchJobStep1()) // 동기 방식
-                .start(asyncBatchJobSyncStep1()) // 비동기 방식
+                .start(multiThreadStepBatchJobStep1())
                 .listener(new StopWatchJobListener())
                 .build();
     }
 
     @Bean
-    public Step asyncBatchJobStep1() throws Exception {
-        return stepBuilderFactory.get("asyncBatchJobStep1")
+    public Step multiThreadStepBatchJobStep1() {
+        return stepBuilderFactory.get("multiThreadStepBatchJobStep1")
                 .<Customer, Customer>chunk(100)
-                .reader(this.pagingItemReader())
-                .processor(this.customerItemProcessor())
+                .reader(this.pagingItemReader()) // 중요! Thread-safe 하도록 reader 구현 필요
+                .listener(new CustomItemReadListener())
+                .processor((ItemProcessor<Customer, Customer>) item -> item)
+                .listener(new CustomerItemProcessListener())
                 .writer(this.customerItemWriter())
+                .listener(new CustomItemWriterListener())
+                .taskExecutor(this.taskExecutor()) // 비동기로 실행하기 위한 옵션
                 .build();
     }
 
-    @Bean
-    public Step asyncBatchJobSyncStep1() throws Exception {
-        return stepBuilderFactory.get("asyncBatchJobSyncStep1")
-                .<Customer, Customer>chunk(100)
-                .reader(this.pagingItemReader())
-                .processor(this.asyncItemProcessor())
-                .writer(this.asyncItemWriter())
-                .build();
-    }
+    private TaskExecutor taskExecutor() {
+        ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
+        taskExecutor.setCorePoolSize(4);
+        taskExecutor.setMaxPoolSize(8);
+        taskExecutor.setThreadNamePrefix("async-thread");
 
-    private AsyncItemWriter asyncItemWriter() throws Exception {
-        AsyncItemWriter<Customer> asyncItemWriter = new AsyncItemWriter<>();
-        asyncItemWriter.setDelegate(this.customerItemWriter());
-        asyncItemWriter.afterPropertiesSet(); // 빈으로 등록하지 않을시 필요
-        return null;
-    }
-
-    private AsyncItemProcessor asyncItemProcessor() throws Exception {
-        AsyncItemProcessor<Customer, Customer> asyncItemProcessor = new AsyncItemProcessor<>();
-        asyncItemProcessor.setDelegate(this.customerItemProcessor());
-        asyncItemProcessor.setTaskExecutor(new SimpleAsyncTaskExecutor());
-        asyncItemProcessor.afterPropertiesSet(); // 빈으로 등록하지 않을시 필요
-        return asyncItemProcessor;
-    }
-
-    //    @Bean
-    public ItemProcessor<Customer, Customer> customerItemProcessor() throws InterruptedException {
-
-        return new ItemProcessor<Customer, Customer>() {
-            @Override
-            public Customer process(Customer item) throws Exception {
-                Thread.sleep(30);
-
-                return new Customer(
-                        item.getId(),
-                        item.getFirstName().toUpperCase(),
-                        item.getLastName().toUpperCase(),
-                        item.getBirthDate()
-                );
-            }
-        };
+        return taskExecutor;
     }
 
     public JdbcPagingItemReader<Customer> pagingItemReader() {
@@ -112,6 +83,7 @@ public class AsyncConfiguration {
     public JdbcBatchItemWriter customerItemWriter() {
         JdbcBatchItemWriter<Customer> itemWriter = new JdbcBatchItemWriter<>();
         itemWriter.setDataSource(this.dataSource);
+        itemWriter.setSql("insert into customer2 values (:id, :firstName, :lastName, :birthdate)");
         itemWriter.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
         itemWriter.afterPropertiesSet();
 
