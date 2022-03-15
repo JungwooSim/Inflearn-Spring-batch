@@ -47,3 +47,18 @@
 <img src="/img/35.png" width="1000px;">
 
 <img src="/img/36.png" width="1000px;">
+
+## 5. Partitioning
+
+- 개념
+    - MasterStep 이 SlaveStep 을 실행시키는 구조
+    - SlaveStep 은 각 스레드에 의해 독립적으로 실행 된다
+    - SlaveStep 은 독립적인 StepException 파라미터 환경을 구성한다
+    - SlaveStep은 ItemReader / ItemProcessor / ItemWriter 등을 가지고 동작하며 작업을 독립적으로 병렬처리 한다
+    - MasterStep 은 PartitionStep 이며 SlaveStep 은 TaskletStep, FlowStep 등이 올 수 있다
+
+<img src="/img/37.png" width="1000px;">
+
+<img src="/img/38.png" width="1000px;">
+
+<img src="/img/39.png" width="1000px;">
