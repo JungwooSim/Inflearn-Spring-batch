@@ -1,9 +1,8 @@
-package com.example.section8springbatch.JobAndStep;
+package com.example.section8springbatch.JobAndStepListener;
 
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.annotation.AfterJob;
 import org.springframework.batch.core.annotation.BeforeJob;
-import org.springframework.stereotype.Component;
 
 public class CustomAnnotationJobExecutionListener {
 
