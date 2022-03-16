@@ -16,3 +16,4 @@
    - 스프링 배치 청크 프로세스 활용 - ItemProcessor (<a href="/section/section5_4#readme" target="_blank">링크</a>)</br>
 6. 스프링 배치 반복 및 오류 제어 (<a href="/section/section6#readme" target="_blank">링크</a>)</br>
 7. 스프링 배치 멀티 스레드 프로세싱 (<a href="/section/section7#readme" target="_blank">링크</a>)</br>
+8. 스프링 배치 이벤트 리스너 (<a href="/section/section8#readme" target="_blank">링크</a>)</br>
