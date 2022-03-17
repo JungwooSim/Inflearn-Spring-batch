@@ -1,0 +1,45 @@
+spring:
+  profiles:
+    active: local
+  batch:
+    job:
+      names: ${job.name:NONE} # --job.name={batchName}
+      #names: batchJob1 # ??? ?? ??? batch name ?? ??
+      #enabled: false # Spring boot ? batch ? ?? ?? ??
+    #jdbc:
+    #  initialize-schema: always
+    #  table-prefix: SYSTEM_
+
+---
+
+
+spring:
+  #  profiles:
+  #    active: jpatest
+  config:
+    activate:
+      on-profile: jpatest
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/Documents/h2/db/Inflearn-Spring-batch
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    hikari:
+      jdbc-url: jdbc:h2:tcp://localhost/~/Documents/h2/db/Inflearn-Spring-batch
+      username: sa
+      password:
+      driver-class-name: org.h2.Driver
+  batch:
+    jdbc:
+      initialize-schema: embedded

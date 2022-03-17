@@ -17,3 +17,4 @@
 6. 스프링 배치 반복 및 오류 제어 (<a href="/section/section6#readme" target="_blank">링크</a>)</br>
 7. 스프링 배치 멀티 스레드 프로세싱 (<a href="/section/section7#readme" target="_blank">링크</a>)</br>
 8. 스프링 배치 이벤트 리스너 (<a href="/section/section8#readme" target="_blank">링크</a>)</br>
+9. 스프링 배치 테스트 및 운영 (<a href="/section/section9#readme" target="_blank">링크</a>)</br>
