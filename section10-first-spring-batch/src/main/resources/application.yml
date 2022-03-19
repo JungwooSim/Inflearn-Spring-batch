@@ -1,25 +1,4 @@
-
-#spring:
-#  profiles:
-#    active: local
-#  batch:
-#    job:
-#      names: ${job.name:NONE} # --job.name={batchName}
-#      #names: batchJob1 # ??? ?? ??? batch name ?? ??
-#      #enabled: false # Spring boot ? batch ? ?? ?? ??
-#    #jdbc:
-#    #  initialize-schema: always
-#    #  table-prefix: SYSTEM_
-
----
-
-
 spring:
-  #  profiles:
-  #    active: jpatest
-#  config:
-#    activate:
-#      on-profile: jpatest
   datasource:
     url: jdbc:mysql://localhost:3307/inflearn_spring_batch?characterEncoding=UTF-8&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull
     username: big
@@ -30,6 +9,12 @@ spring:
       hibernate.format_sql: true
     hibernate:
       ddl-auto: update
+  batch:
+    job:
+      names: ${job.name:NONE} # --job.name={batchName}
+      enabled: false
+    jdbc:
+      initialize-schema: always
 
 logging:
   level:
@@ -39,18 +24,3 @@ logging:
         type:
           descriptor:
             sql: trace
----
-
-spring:
-  config:
-    activate:
-      on-profile: local
-  datasource:
-    hikari:
-      jdbc-url: jdbc:h2:tcp://localhost/~/Documents/h2/db/Inflearn-Spring-batch
-      username: sa
-      password:
-      driver-class-name: org.h2.Driver
-  batch:
-    jdbc:
-      initialize-schema: embedded
